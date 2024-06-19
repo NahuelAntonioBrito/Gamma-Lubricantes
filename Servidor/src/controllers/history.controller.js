@@ -1,5 +1,5 @@
-import historyModel from "../models/history.model.js";
-import clientModel from "../models/clients.model.js";
+import historyModel from "../dao/models/history.model.js";
+import clientModel from "../dao/models/clients.model.js";
 
 class HistoryController {
   async getHistory(req, res) {

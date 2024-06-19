@@ -1,4 +1,4 @@
-import clientModel from "../models/clients.model.js";
+import clientModel from "../dao/models/clients.model.js";
 
 class ClientController {
   async getClients(req, res) {
