@@ -1,0 +1,31 @@
+.item-detail {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.item-detail-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.item-detail-image {
+  width: 200px;
+  height: 100px;
+  object-fit: scale-down;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.item-detail-price,
+.item-detail-stock,
+.item-detail-code {
+  font-size: 1.2em;
+  margin: 10px 0;
+  color: black;
+}

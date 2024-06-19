@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Nahuel Antonio",
+    "lastName": "Brito",
+    "auto": "Fiat dos",
+    "patente": "nmf824",
+    "modelo": 2014,
+    "aceite": "10w40",
+    "celular": "03541 321418",
+    "mail": "britonahuelantonio@gmail.com",
+    "historial": [
+      {
+        "fecha": "2023-05-10",
+        "descripcion": "Cambio de aceite y filtro"
+      },
+      {
+        "fecha": "2023-06-15",
+        "descripcion": "Revisión de frenos y reemplazo de pastillas"
+      },
+      {
+        "fecha": "2023-08-20",
+        "descripcion": "Cambio de bujías y revisión de sistema de encendido"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Luis",
+    "lastName": "Perez",
+    "auto": "Nissan Kuick",
+    "patente": "nwe891",
+    "modelo": 2018,
+    "aceite": "10w40",
+    "celular": "03541 382313",
+    "mail": "luisperez@gmail.com",
+    "historial": [
+      {
+        "fecha": "2023-05-10",
+        "descripcion": "Cambio de aceite y filtro"
+      },
+      {
+        "fecha": "2023-06-15",
+        "descripcion": "Revisión de frenos y reemplazo de pastillas"
+      },
+      {
+        "fecha": "2023-08-20",
+        "descripcion": "Cambio de bujías y revisión de sistema de encendido"
+      }
+    ]
+  }
+]

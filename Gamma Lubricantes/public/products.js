@@ -1,0 +1,41 @@
+export const products = [
+  {
+    id: 1,
+    title: "Aceite semisintético Shell",
+    liters: 5,
+    price: 20,
+    thumbnails: [
+      "https://http2.mlstatic.com/D_NQ_NP_989449-MLU75623864268_042024-O.webp",
+    ],
+    status: true,
+    code: "10w40",
+    stock: 16,
+    category: "Aceite",
+  },
+  {
+    id: 2,
+    title: "Aceite Auto Mineral Multigrado Castrol ",
+    liters: 5,
+    price: 40,
+    thumbnails: [
+      "https://http2.mlstatic.com/D_NQ_NP_840449-MLA50252970401_062022-O.webp",
+    ],
+    status: true,
+    code: "20w50",
+    stock: 16,
+    category: "Aceite",
+  },
+  {
+    id: 3,
+    title: "Liquido Refrigerante Anticorrosivo",
+    liters: 5,
+    price: 20,
+    thumbnails: [
+      "https://http2.mlstatic.com/D_NQ_NP_985643-MLU72628335564_112023-O.webp",
+    ],
+    status: true,
+    code: "EP002",
+    stock: 16,
+    category: "Liquido Refrigerante",
+  },
+];
