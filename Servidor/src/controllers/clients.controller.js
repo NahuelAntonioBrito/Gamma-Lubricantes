@@ -1,9 +1,10 @@
 import clientModel from "../dao/models/clients.model.js";
+import { ClientService } from "../services/repositories/index.js";
 
 class ClientController {
   async getClients(req, res) {
     try {
-      const clients = await clientModel.find();
+      const clients = await ClientService.getAll();
       res.json({ clients });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -14,7 +15,7 @@ class ClientController {
     try {
       const sixMonthsAgo = new Date();
       sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-      const clients = await clientModel.find().populate("history");
+      const clients = await ClientService.getAll();
 
       const inactiveClients = clients
         .map((client) => {
@@ -43,7 +44,7 @@ class ClientController {
     try {
       const clientId = req.params.clientId;
 
-      const client = await clientModel.findById(clientId).populate("history");
+      const client = await ClientService.getById(clientId);
 
       if (!client) {
         return res.status(404).json({ error: "Cliente no encontrado" });
@@ -57,7 +58,7 @@ class ClientController {
   async addClient(req, res) {
     try {
       const newClientData = req.body;
-      const newClient = new clientModel(newClientData);
+      const newClient = await ClientService.create(newClientData);
       await newClient.save();
       res.status(201).json({ client: newClient });
     } catch (error) {
@@ -70,10 +71,9 @@ class ClientController {
       const clientId = req.params.id;
       const updatedClientData = req.body;
 
-      const updatedClient = await clientModel.findByIdAndUpdate(
+      const updatedClient = await ClientService.update(
         clientId,
-        updatedClientData,
-        { new: true }
+        updatedClientData
       );
 
       if (!updatedClient) {
@@ -89,7 +89,7 @@ class ClientController {
   async deleteClient(req, res) {
     try {
       const clientId = req.params.id;
-      const deletedClient = await clientModel.findByIdAndDelete(clientId);
+      const deletedClient = await ClientService.delete(clientId);
 
       if (!deletedClient) {
         return res.status(404).json({ error: "Cliente no encontrado" });

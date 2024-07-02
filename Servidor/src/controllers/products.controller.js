@@ -1,9 +1,10 @@
 import productModel from "../dao/models/products.model.js";
+import { ProductService } from "../services/repositories/index.js";
 
 class ProductController {
   async getProducts(req, res) {
     try {
-      const products = await productModel.find();
+      const products = await ProductService.getAll(req);
       res.json({ products });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -13,8 +14,7 @@ class ProductController {
   async addProduct(req, res) {
     try {
       const newProductData = req.body;
-      const newProduct = new productModel(newProductData);
-      await newProduct.save();
+      const newProduct = await ProductService.create(newProductData);
       res.status(201).json({ product: newProduct });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -26,10 +26,9 @@ class ProductController {
       const productId = req.params.id;
       const updatedProductData = req.body;
 
-      const updatedProduct = await productModel.findByIdAndUpdate(
+      const updatedProduct = await ProductService.update(
         productId,
-        updatedProductData,
-        { new: true }
+        updatedProductData
       );
 
       if (!updatedProduct) {
@@ -45,7 +44,7 @@ class ProductController {
   async deleteProduct(req, res) {
     try {
       const productId = req.params.id;
-      const deletedProduct = await productModel.findByIdAndDelete(productId);
+      const deletedProduct = await ProductService.delete(productId);
 
       if (!deletedProduct) {
         return res.status(404).json({ error: "Producto no encontrado" });

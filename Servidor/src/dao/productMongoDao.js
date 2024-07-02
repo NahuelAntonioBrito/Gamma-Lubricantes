@@ -1,6 +1,6 @@
-import productModel from "./models/products.model";
+import productModel from "./models/products.model.js";
 
-export default class HistoryMongoDao {
+export default class ProductMongoDao {
   getAll = async () => await productModel.find().exec();
   getById = async (id) => await productModel.findById(id).exec();
   create = async (data) => await productModel.create(data);

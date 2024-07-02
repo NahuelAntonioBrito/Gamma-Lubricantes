@@ -1,10 +1,12 @@
-import historyModel from "../dao/models/history.model.js";
-import clientModel from "../dao/models/clients.model.js";
+import {
+  ClientService,
+  HistoryService,
+} from "../services/repositories/index.js";
 
 class HistoryController {
   async getHistory(req, res) {
     try {
-      const history = await historyModel.find();
+      const history = await HistoryService.getAll();
       res.json({ history });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -17,19 +19,19 @@ class HistoryController {
       const { descripcion } = req.body;
 
       const newHistoryData = {
-        fecha: new Date().toISOString(),
+        fecha: new Date(),
         descripcion,
+        client: clientId,
       };
 
-      const newHistory = new historyModel(newHistoryData);
-      await newHistory.save();
+      const newHistory = await HistoryService.create(newHistoryData);
 
-      const client = await clientModel.findById(clientId);
+      const client = await ClientService.getById(clientId);
       if (!client) {
         return res.status(404).json({ error: "Cliente no encontrado" });
       }
 
-      client.history.push(newHistory);
+      client.history.push(newHistory._id);
       await client.save();
 
       res.status(201).json({ client: client, history: newHistory });
@@ -43,10 +45,9 @@ class HistoryController {
       const historyId = req.params.historyId;
       const updatedHistoryData = req.body;
 
-      const updatedHistory = await historyModel.findByIdAndUpdate(
+      const updatedHistory = await HistoryService.update(
         historyId,
-        updatedHistoryData,
-        { new: true }
+        updatedHistoryData
       );
 
       if (!updatedHistory) {
@@ -61,18 +62,18 @@ class HistoryController {
 
   async deleteHistory(req, res) {
     try {
-      const historyId = req.params.historyId;
-      const deletedHistory = await historyModel.findByIdAndDelete(historyId);
+      const { clientId, historyId } = req.params;
+      console.log("historyId: ", historyId);
+
+      const deletedHistory = await HistoryService.delete(historyId);
 
       if (!deletedHistory) {
         return res.status(404).json({ error: "Historial no encontrado" });
       }
 
-      const client = await clientModel.findOneAndUpdate(
-        { history: historyId },
-        { $pull: { history: historyId } },
-        { new: true }
-      );
+      const client = await ClientService.update(clientId, {
+        $pull: { history: historyId },
+      });
 
       if (!client) {
         return res.status(404).json({ error: "Cliente no encontrado" });

@@ -1,4 +1,4 @@
-import historyModel from "./models/history.model";
+import historyModel from "./models/history.model.js";
 
 export default class HistoryMongoDao {
   getAll = async () => await historyModel.find().exec();

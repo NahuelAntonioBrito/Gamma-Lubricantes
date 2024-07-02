@@ -1,8 +1,8 @@
-import clientModel from "./models/clients.model";
+import clientModel from "./models/clients.model.js";
 
-export default class clientMongoDao {
-  getAll = async () => await clientModel.find().exec();
-  getById = async (id) => await clientModel.findById(id).exec();
+export default class ClientMongoDao {
+  getAll = async () => await clientModel.find().populate("history");
+  getById = async (id) => await clientModel.findById(id).populate("history");
   create = async (data) => await clientModel.create(data);
   update = async (id, data) =>
     await clientModel.findByIdAndUpdate(id, data, {
