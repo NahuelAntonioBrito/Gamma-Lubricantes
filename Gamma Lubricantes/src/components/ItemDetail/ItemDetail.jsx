@@ -4,15 +4,46 @@ import "./ItemDetail.css";
 const ItemDetail = ({ product }) => {
   return (
     <div className="item-detail">
-      <h2 className="item-detail-title">{product.title}</h2>
-      <img
-        className="item-detail-image"
-        src={product.thumbnails[0]}
-        alt={product.title}
-      />
-      <p className="item-detail-price">Precio: ${product.price}</p>
-      <p className="item-detail-stock">Stock: {product.stock}</p>
-      <p className="item-detail-code">Código: {product.code}</p>
+      <div className="item-detail-container">
+        <div className="item-detail-image-container">
+          <img
+            className="item-detail-image"
+            src={product.thumbnails[0]}
+            alt={product.title}
+          />
+        </div>
+        <div className="item-detail-info">
+          <h2 className="item-detail-title">{product.title}</h2>
+          <p className="item-detail-text">Litros: {product.liters}</p>
+          <p className="item-detail-text">Precio: ${product.price}</p>
+          <p className="item-detail-text">Código: {product.code}</p>
+          <p className="item-detail-text">Stock: {product.stock}</p>
+          <p className="item-detail-text">Categoría: {product.category}</p>
+        </div>
+      </div>
+      {product.carCompatibility && product.carCompatibility.length > 0 && (
+        <div className="item-detail-table-container">
+          <h3 className="item-detail-table-title">
+            Autos que llevan este aceite
+          </h3>
+          <table className="item-detail-table">
+            <thead>
+              <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {product.carCompatibility.map((car) => (
+                <tr key={car._id}>
+                  <td>{car.brand}</td>
+                  <td>{car.model}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,0 +1,26 @@
+.inactive-clients {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.inactive-clients ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.inactive-clients li {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inactive-clients li p {
+  margin: 5px 0;
+}

@@ -1,29 +1,24 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { products } from "../../../public/products";
 import ItemDetail from "../ItemDetail/ItemDetail";
+import { products } from "../../api/products";
 import "./ItemDetailContainer.css";
-
-const getProductById = (prodId) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(products.find((prod) => prod.code === prodId));
-    }, 500);
-  });
-};
 
 const ItemDetailContainer = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    getProductById(productId)
-      .then((response) => {
+    const fetchProduct = async () => {
+      try {
+        const response = await products.getById(productId);
         setProduct(response);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+
+    fetchProduct();
   }, [productId]);
 
   return (

@@ -11,6 +11,39 @@ class ProductController {
     }
   }
 
+  async getById(req, res) {
+    try {
+      const productId = req.params.id;
+      const product = await ProductService.getById(productId);
+      if (!product) {
+        return res.status(404).json({ message: "Producto no encontrado" });
+      }
+      res.json({ product });
+    } catch (error) {
+      res.status(500).json({ message: "Error al obtener el producto", error });
+    }
+  }
+
+  async getByName(req, res) {
+    try {
+      const productName = req.query.productName;
+      const products = await ProductService.getByName(productName);
+      res.json({ products });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getByCategory(req, res) {
+    try {
+      const productCategory = req.params.productCategory;
+      const products = await ProductService.getByCategory(productCategory);
+      res.json({ products });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   async addProduct(req, res) {
     try {
       const newProductData = req.body;

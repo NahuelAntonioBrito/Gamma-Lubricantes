@@ -20,6 +20,15 @@ export default class ClientRepository {
     }
   };
 
+  getByName = async (clientName) => {
+    try {
+      return await this.dao.getByName(clientName);
+    } catch (error) {
+      console.error("Error al obtener los clientes: ", error);
+      throw error;
+    }
+  };
+
   create = async (data) => {
     try {
       return await this.dao.create(data);

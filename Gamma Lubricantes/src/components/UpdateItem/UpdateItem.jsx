@@ -1,54 +1,42 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import UpdateForm from "../UpdateForm/UpdateForm";
-import { clients } from "../../../public/clients";
-import { products } from "../../../public/products";
+import { products } from "../../api/products";
+import { clients } from "../../api/clients";
+import SearchBar from "../SearchBar/SearchBar";
 
 const UpdateItem = ({ type }) => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState(null);
 
-  const handleSearch = () => {
-    if (type === "product") {
-      const product = products.find(
-        (prod) => prod.id === parseInt(searchTerm, 10)
-      );
-      setData(product || {});
-    } else if (type === "client") {
-      const client = clients.find(
-        (client) => client.name.toLowerCase() === searchTerm.toLowerCase()
-      );
-      setData(client || {});
-    }
+  const handleSelect = (item) => {
+    setData(item);
   };
 
-  const handleUpdate = (updatedData) => {
-    if (type === "product") {
-      const index = products.findIndex((prod) => prod.id === updatedData.id);
-      products[index] = updatedData;
-    } else if (type === "client") {
-      const index = clients.findIndex((client) => client.id === updatedData.id);
-      clients[index] = updatedData;
+  const handleUpdate = async (id, updatedData) => {
+    try {
+      if (type === "product") {
+        await products.updateProduct(id, updatedData);
+      } else {
+        await clients.updateClient(id, updatedData);
+      }
+      console.log(
+        `${type === "product" ? "Producto" : "Cliente"} actualizado:`,
+        updatedData
+      );
+    } catch (error) {
+      console.error("Error updating item: ", error);
     }
-    console.log(
-      `${type === "product" ? "Producto" : "Cliente"} actualizado:`,
-      updatedData
-    );
   };
 
   return (
     <div className="update-item-container">
       <h2>Buscar y Actualizar {type === "product" ? "Producto" : "Cliente"}</h2>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder={
-          type === "product"
-            ? "Buscar por ID de Producto"
-            : "Buscar por Nombre de Cliente"
-        }
+      <SearchBar
+        onNavigate={handleSelect}
+        placeholder={`Buscar ${
+          type === "product" ? "producto" : "cliente"
+        } a actualizar`}
+        type={type}
       />
-      <button onClick={handleSearch}>Buscar</button>
       {data && <UpdateForm type={type} data={data} onUpdate={handleUpdate} />}
     </div>
   );

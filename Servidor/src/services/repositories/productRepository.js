@@ -19,6 +19,22 @@ export default class ProductReposiroty {
       throw error;
     }
   };
+  getByName = async (productName) => {
+    try {
+      return await this.dao.getByName(productName);
+    } catch (error) {
+      console.error("Error al obtener los productos: ", error);
+      throw error;
+    }
+  };
+  getByCategory = async (productCategory) => {
+    try {
+      return await this.dao.getByCategory(productCategory);
+    } catch (error) {
+      console.error("Error al obtener los productos por categoria: ", error);
+      throw error;
+    }
+  };
   create = async (data) => {
     try {
       return await this.dao.create(data);

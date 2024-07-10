@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { products } from "../../api/products";
+import { clients } from "../../api/clients";
 import "./AddForm.css";
 
-const AddForm = ({ type, onAdd }) => {
+const AddForm = ({ type }) => {
   const initialProductState = {
     id: "",
     title: "",
@@ -39,10 +41,20 @@ const AddForm = ({ type, onAdd }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onAdd(formState);
-    setFormState(type === "product" ? initialProductState : initialClientState);
+    try {
+      if (type === "product") {
+        await products.addProduct(formState);
+      } else {
+        await clients.addClient(formState);
+      }
+      setFormState(
+        type === "product" ? initialProductState : initialClientState
+      );
+    } catch (error) {
+      console.error("Error adding item: ", error);
+    }
   };
 
   return (

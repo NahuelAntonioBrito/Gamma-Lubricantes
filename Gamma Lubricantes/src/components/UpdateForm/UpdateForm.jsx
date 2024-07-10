@@ -18,7 +18,7 @@ const UpdateForm = ({ type, data, onUpdate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdate(formState);
+    onUpdate(formState._id, formState); // Asegúrate de pasar el _id
   };
 
   return (
@@ -32,28 +32,32 @@ const UpdateForm = ({ type, data, onUpdate }) => {
             <input
               type="text"
               name="title"
-              value={formState.title}
+              value={formState.title || ""}
               onChange={handleChange}
               placeholder="Título"
             />
             <input
               type="number"
               name="liters"
-              value={formState.liters}
+              value={formState.liters || ""}
               onChange={handleChange}
               placeholder="Litros"
             />
             <input
               type="number"
               name="price"
-              value={formState.price}
+              value={formState.price || ""}
               onChange={handleChange}
               placeholder="Precio"
             />
             <input
               type="text"
               name="thumbnails"
-              value={formState.thumbnails[0]}
+              value={
+                formState.thumbnails && formState.thumbnails[0]
+                  ? formState.thumbnails[0]
+                  : ""
+              }
               onChange={(e) =>
                 setFormState({
                   ...formState,
@@ -65,21 +69,21 @@ const UpdateForm = ({ type, data, onUpdate }) => {
             <input
               type="text"
               name="code"
-              value={formState.code}
+              value={formState.code || ""}
               onChange={handleChange}
               placeholder="Código"
             />
             <input
               type="number"
               name="stock"
-              value={formState.stock}
+              value={formState.stock || ""}
               onChange={handleChange}
               placeholder="Stock"
             />
             <input
               type="text"
               name="category"
-              value={formState.category}
+              value={formState.category || ""}
               onChange={handleChange}
               placeholder="Categoría"
             />
@@ -89,56 +93,56 @@ const UpdateForm = ({ type, data, onUpdate }) => {
             <input
               type="text"
               name="name"
-              value={formState.name}
+              value={formState.name || ""}
               onChange={handleChange}
               placeholder="Nombre"
             />
             <input
               type="text"
               name="lastName"
-              value={formState.lastName}
+              value={formState.lastName || ""}
               onChange={handleChange}
               placeholder="Apellido"
             />
             <input
               type="text"
               name="auto"
-              value={formState.auto}
+              value={formState.auto || ""}
               onChange={handleChange}
               placeholder="Auto"
             />
             <input
               type="text"
               name="patente"
-              value={formState.patente}
+              value={formState.patente || ""}
               onChange={handleChange}
               placeholder="Patente"
             />
             <input
               type="number"
               name="modelo"
-              value={formState.modelo}
+              value={formState.modelo || ""}
               onChange={handleChange}
               placeholder="Modelo"
             />
             <input
               type="text"
               name="aceite"
-              value={formState.aceite}
+              value={formState.aceite || ""}
               onChange={handleChange}
               placeholder="Aceite"
             />
             <input
               type="text"
               name="celular"
-              value={formState.celular}
+              value={formState.celular || ""}
               onChange={handleChange}
               placeholder="Celular"
             />
             <input
               type="email"
               name="mail"
-              value={formState.mail}
+              value={formState.mail || ""}
               onChange={handleChange}
               placeholder="Email"
             />

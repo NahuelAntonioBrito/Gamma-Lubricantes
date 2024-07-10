@@ -7,6 +7,8 @@ router.get("/", ClientController.getClients);
 
 router.get("/inactivos", ClientController.getInactiveClients);
 
+router.get("/name", ClientController.getByName);
+
 router.get("/:clientId", ClientController.getClientById);
 
 router.post("/", ClientController.addClient);

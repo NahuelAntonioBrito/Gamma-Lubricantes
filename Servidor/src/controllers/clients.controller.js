@@ -32,9 +32,23 @@ class ClientController {
             };
           }
         })
-        .filter((client) => client !== undefined);
+        .filter((client) => client !== undefined)
+        .sort(
+          (a, b) =>
+            new Date(b.lastHistory.fecha) - new Date(a.lastHistory.fecha)
+        );
 
       res.json({ inactiveClients });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getByName(req, res) {
+    try {
+      const clientName = req.query.clientName;
+      const clients = await ClientService.getByName(clientName);
+      res.json({ clients });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

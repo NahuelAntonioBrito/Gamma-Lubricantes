@@ -1,10 +1,24 @@
-import React, { useState } from "react";
-import { clients } from "../../../public/clients";
+import React, { useState, useEffect } from "react";
+import { clients } from "../../api/clients";
 import ClientDetail from "../ClientDetail/ClientDetail";
 import "./ClientList.css";
 
 const ClientList = () => {
+  const [clientList, setClientList] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const response = await clients.getAll();
+        setClientList(response.clients); // Asegúrate de que el backend devuelve los datos en esta estructura
+      } catch (error) {
+        console.error("Error fetching clients: ", error);
+      }
+    };
+
+    fetchClients();
+  }, []);
 
   const handleSelectClient = (client) => {
     setSelectedClient(client);
@@ -15,8 +29,8 @@ const ClientList = () => {
       <div className="client-list">
         <h2>Clientes</h2>
         <ul>
-          {clients.map((client) => (
-            <li key={client.id} onClick={() => handleSelectClient(client)}>
+          {clientList.map((client) => (
+            <li key={client._id} onClick={() => handleSelectClient(client)}>
               {client.name} {client.lastName}
             </li>
           ))}

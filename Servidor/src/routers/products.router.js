@@ -6,6 +6,12 @@ const router = Router();
 
 router.get("/", ProductsController.getProducts);
 
+router.get("/name", ProductsController.getByName);
+
+router.get("/category/:productCategory", ProductsController.getByCategory);
+
+router.get("/:id", ProductsController.getById);
+
 router.post("/", ProductsController.addProduct);
 
 router.put("/:id", ProductsController.updateProduct);
