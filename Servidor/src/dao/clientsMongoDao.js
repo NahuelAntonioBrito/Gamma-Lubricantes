@@ -1,8 +1,19 @@
 import clientModel from "./models/clients.model.js";
 
 export default class ClientMongoDao {
-  getAll = async () => await clientModel.find().populate("history");
-  getById = async (id) => await clientModel.findById(id).populate("history");
+  getAll = async () => {
+    return await clientModel.find().populate({
+      path: "history",
+      options: { sort: { fecha: -1 } },
+    });
+  };
+
+  getById = async (id) => {
+    return await clientModel.findById(id).populate({
+      path: "history",
+      options: { sort: { fecha: -1 } },
+    });
+  };
   getByName = async (clientName) => {
     return clientModel.find({ name: new RegExp(clientName, "i") }).exec();
   };

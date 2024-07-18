@@ -9,6 +9,11 @@ export const clients = {
   getInactive: async () => {
     return api.get(`${endpoint}/inactivos`).then((response) => response.data);
   },
+  getLastUpdate: async () => {
+    return api
+      .get(`${endpoint}/inactive-last-updated`)
+      .then((response) => response.data);
+  },
   getByName: async (name) => {
     return api
       .get(`${endpoint}/name?clientName=${name}`)

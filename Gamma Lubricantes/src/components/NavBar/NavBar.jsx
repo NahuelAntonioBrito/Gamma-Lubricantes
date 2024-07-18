@@ -1,6 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchBar from "../SearchBar/SearchBar";
+import NotificationBell from "../NotificationBell/NotificationBell";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -46,6 +47,11 @@ const Navbar = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="clientsDropdown">
                 <li>
+                  <Link className="dropdown-item" to="/clients">
+                    Ver Clientes
+                  </Link>
+                </li>
+                <li>
                   <Link className="dropdown-item" to="/add-client">
                     Agregar Cliente
                   </Link>
@@ -75,6 +81,11 @@ const Navbar = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="productsDropdown">
                 <li>
+                  <Link className="dropdown-item" to="/products">
+                    Ver Productos
+                  </Link>
+                </li>
+                <li>
                   <Link className="dropdown-item" to="/add-product">
                     Agregar Producto
                   </Link>
@@ -91,6 +102,7 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
+            <NotificationBell />
           </ul>
           <SearchBar
             onNavigate={handleNavigate}

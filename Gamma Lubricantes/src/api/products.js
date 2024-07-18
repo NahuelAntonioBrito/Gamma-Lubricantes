@@ -22,10 +22,24 @@ export const products = {
       .get(`${endpoint}/name?productName=${name}`)
       .then((response) => response.data.products);
   },
-  getByCategory: async (categoryId) => {
+  getByCategory: async (categoryId, page = 1) => {
     return api
-      .get(`${endpoint}/category/${categoryId}`)
-      .then((response) => response.data.products);
+      .get(`${endpoint}/category/${categoryId}?page=${page}`)
+      .then((response) => response.data);
+  },
+  getCategories: async () => {
+    return api.get(`${endpoint}/categories`).then((response) => response.data);
+  },
+  getPaginated: async (page, limit = 12) => {
+    try {
+      const response = await api.get(`${endpoint}/paginated-products`, {
+        params: { page, limit },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching paginated products:", error);
+      return { products: [], totalPages: 0 };
+    }
   },
   addProduct: async (productData) => {
     return api.post(endpoint, productData).then((response) => response.data);

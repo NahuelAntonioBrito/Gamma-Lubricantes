@@ -1,0 +1,37 @@
+/* CategoryDropdown.css */
+.category-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.category-dropdown-label {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.category-dropdown {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+  color: black;
+}
+
+.category-dropdown option {
+  color: black;
+  background-color: white;
+}
+
+.category-dropdown option:hover {
+  background-color: #007bff; /* Azul claro */
+  color: white;
+  border: 1px solid #0056b3; /* Azul intenso */
+}

@@ -17,13 +17,13 @@
 
 .delete-form-container input {
   padding: 10px;
-  margin-bottom: 20px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.delete-form-container button {
+.DeleteButton {
+  margin-top: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;

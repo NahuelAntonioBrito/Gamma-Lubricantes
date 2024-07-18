@@ -1,34 +1,39 @@
 .client-list-container {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f8f8f8;
 }
 
 .client-list {
-  background: #f8f8f8;
+  background: #ffffff;
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-  width: 30%;
-  box-sizing: border-box;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.client-list h2 {
   color: black;
+  margin-bottom: 10px;
 }
 
 .client-list ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .client-list li {
   padding: 10px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .client-list li:hover {
-  background: #ddd;
-}
-
-.client-detail-container {
-  width: 70%;
+  background: #0056b3;
+  color: white;
+  border-radius: 5px;
 }

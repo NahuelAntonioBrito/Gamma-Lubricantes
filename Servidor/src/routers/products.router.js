@@ -8,6 +8,10 @@ router.get("/", ProductsController.getProducts);
 
 router.get("/name", ProductsController.getByName);
 
+router.get("/categories", ProductsController.getCategories);
+
+router.get("/paginated-products", ProductsController.getPaginatedProducts);
+
 router.get("/category/:productCategory", ProductsController.getByCategory);
 
 router.get("/:id", ProductsController.getById);

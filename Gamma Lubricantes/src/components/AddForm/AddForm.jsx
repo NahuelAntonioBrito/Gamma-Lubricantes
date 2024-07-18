@@ -1,7 +1,10 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 import { products } from "../../api/products";
 import { clients } from "../../api/clients";
+import CarCompatibilityForm from "../CarCompatibilityForm/CarCompatibilityForm";
 import "./AddForm.css";
+//import "../CarCompatibilityForm/CarCompatibilityForm.css";
 
 const AddForm = ({ type }) => {
   const initialProductState = {
@@ -14,6 +17,7 @@ const AddForm = ({ type }) => {
     code: "",
     stock: "",
     category: "",
+    carCompatibility: [],
   };
 
   const initialClientState = {
@@ -33,6 +37,10 @@ const AddForm = ({ type }) => {
     type === "product" ? initialProductState : initialClientState
   );
 
+  const [showCarCompatibilityForm, setShowCarCompatibilityForm] =
+    useState(false);
+  const [carCompatibilityAdded, setCarCompatibilityAdded] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({
@@ -41,19 +49,72 @@ const AddForm = ({ type }) => {
     });
   };
 
+  const handleCarCompatibilityChange = (compatibility) => {
+    setFormState({
+      ...formState,
+      carCompatibility: compatibility,
+    });
+    setCarCompatibilityAdded(true);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      type === "product" &&
+      formState.category.toLowerCase() === "aceite" &&
+      !carCompatibilityAdded
+    ) {
+      const result = await Swal.fire({
+        title: "¿Quieres agregar autos compatibles?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sí",
+        cancelButtonText: "No",
+      });
+
+      if (result.isConfirmed) {
+        setShowCarCompatibilityForm(true);
+        return;
+      } else {
+        formState.carCompatibility = [];
+      }
+    }
+
     try {
       if (type === "product") {
         await products.addProduct(formState);
+        Swal.fire({
+          title: "¡Éxito!",
+          text: "Producto agregado con éxito",
+          icon: "success",
+          confirmButtonText: "Genial",
+        });
       } else {
         await clients.addClient(formState);
+        Swal.fire({
+          title: "¡Éxito!",
+          text: "Cliente agregado con éxito",
+          icon: "success",
+          confirmButtonText: "Genial",
+        });
       }
       setFormState(
         type === "product" ? initialProductState : initialClientState
       );
+      setShowCarCompatibilityForm(false); // Ocultar el componente CarCompatibilityForm
+      setCarCompatibilityAdded(false); // Resetear el estado de carCompatibilityAdded
     } catch (error) {
       console.error("Error adding item: ", error);
+      Swal.fire({
+        title: "¡Error!",
+        text:
+          type === "product"
+            ? "Error al agregar el producto"
+            : "Error al agregar el cliente",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
     }
   };
 
@@ -117,6 +178,12 @@ const AddForm = ({ type }) => {
               onChange={handleChange}
               placeholder="Categoría"
             />
+            {showCarCompatibilityForm && (
+              <CarCompatibilityForm
+                compatibility={formState.carCompatibility}
+                onChange={handleCarCompatibilityChange}
+              />
+            )}
           </>
         ) : (
           <>

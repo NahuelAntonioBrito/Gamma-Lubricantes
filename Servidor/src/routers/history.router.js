@@ -6,6 +6,11 @@ router.get("/", HistoryController.getHistory);
 
 router.post("/:clientId", HistoryController.addHistoryToClient);
 
+router.post(
+  "/:clientId/add-old-history",
+  HistoryController.addOldHistoryToClient
+);
+
 router.put("/:historyId", HistoryController.updateHistory);
 
 router.delete("/:historyId/:clientId", HistoryController.deleteHistory);

@@ -1,6 +1,7 @@
 export default class ClientRepository {
-  constructor(dao) {
+  constructor(dao, inactiveClientDao) {
     this.dao = dao;
+    this.inactiveClientDao = inactiveClientDao;
   }
 
   getAll = async () => {
@@ -17,6 +18,7 @@ export default class ClientRepository {
       return await this.dao.getById(id);
     } catch (error) {
       console.error("Error al obtener el cliente: ", error);
+      throw error;
     }
   };
 
@@ -50,6 +52,48 @@ export default class ClientRepository {
       return await this.dao.delete(id);
     } catch (error) {
       console.error("Error al eliminar el cliente: ", error);
+    }
+  };
+
+  updateInactiveClients = async () => {
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+    const clients = await this.getAll();
+    const inactiveClients = clients
+      .map((client) => {
+        const sortedHistory = client.history.sort(
+          (a, b) => new Date(b.fecha) - new Date(a.fecha)
+        );
+        const lastHistory = sortedHistory[0];
+        if (lastHistory && new Date(lastHistory.fecha) <= sixMonthsAgo) {
+          return {
+            clientId: client._id,
+            name: client.name,
+            lastName: client.lastName,
+            lastHistory,
+          };
+        }
+      })
+      .filter((client) => client !== undefined);
+
+    await this.inactiveClientDao.deleteMany();
+    for (const client of inactiveClients) {
+      await this.inactiveClientDao.create({
+        ...client,
+        lastUpdated: new Date(),
+      });
+    }
+  };
+
+  getInactiveClients = async () => {
+    try {
+      const inactiveClients =
+        await this.inactiveClientDao.getAllSortedByLastHistoryDate();
+      return inactiveClients;
+    } catch (error) {
+      console.error("Error al obtener clientes inactivos: ", error);
+      throw error;
     }
   };
 }

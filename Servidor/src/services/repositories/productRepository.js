@@ -27,11 +27,20 @@ export default class ProductReposiroty {
       throw error;
     }
   };
-  getByCategory = async (productCategory) => {
+  getByCategory = async (productCategory, page, limit) => {
     try {
-      return await this.dao.getByCategory(productCategory);
+      return await this.dao.getByCategory(productCategory, page, limit);
     } catch (error) {
       console.error("Error al obtener los productos por categoria: ", error);
+      throw error;
+    }
+  };
+
+  getCategories = async () => {
+    try {
+      return await this.dao.getCategories();
+    } catch (error) {
+      console.error("Error al obtener las categorias: ", error);
       throw error;
     }
   };
@@ -57,6 +66,14 @@ export default class ProductReposiroty {
       return await this.dao.delete(id);
     } catch (error) {
       console.error("Error al eliminar el Producto: ", error);
+      throw error;
+    }
+  };
+  getPaginated = async (page, limit) => {
+    try {
+      return await this.dao.getPaginated(page, limit);
+    } catch (error) {
+      console.error("Error al obtener los Productos paginados: ", error);
       throw error;
     }
   };

@@ -36,11 +36,39 @@ class ProductController {
 
   async getByCategory(req, res) {
     try {
-      const productCategory = req.params.productCategory;
-      const products = await ProductService.getByCategory(productCategory);
-      res.json({ products });
+      const category = req.params.productCategory;
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 12;
+      const skip = (page - 1) * limit;
+
+      const { products, total } = await ProductService.getByCategory(
+        category,
+        page,
+        limit
+      );
+
+      res.status(200).json({
+        products, // Aquí devuelves directamente el array de productos
+        total, // También puedes devolver el total de productos si lo necesitas
+        page, // Información sobre la página actual
+        limit, // Y el límite de productos por página
+      });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error("Error fetching products:", error);
+      res.status(500).json({
+        message: "Error fetching products",
+        error: error.message || error,
+      });
+    }
+  }
+
+  async getCategories(req, res) {
+    try {
+      const categories = await ProductService.getCategories();
+      console.log("categories: ", categories);
+      res.status(200).json(categories);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching categories", error });
     }
   }
 
@@ -86,6 +114,20 @@ class ProductController {
       res.json({ message: "Producto eliminado", product: deletedProduct });
     } catch (error) {
       res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getPaginatedProducts(req, res) {
+    const { page, limit } = req.query;
+
+    try {
+      const paginatedProducts = await ProductService.getPaginated(
+        parseInt(page, 10) || 1,
+        parseInt(limit, 10) || 12
+      );
+      res.status(200).json(paginatedProducts);
+    } catch (error) {
+      res.status(500).json({ error: "Error al obtener productos paginados" });
     }
   }
 }

@@ -10,8 +10,29 @@
   color: black;
 }
 
+.client-detail-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .client-detail h2 {
   margin-top: 0;
+  text-align: center;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #007bff;
+  position: absolute;
+  right: 20px;
+}
+
+.edit-button:hover {
+  color: #0056b3;
 }
 
 .client-detail ul {
@@ -21,4 +42,53 @@
 
 .client-detail li {
   margin: 5px 0;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.history-table th,
+.history-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.history-table th {
+  background-color: #f2f2f2;
+}
+
+.history-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.history-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.delete-history-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; /* Quitar padding para centrar la imagen */
+}
+
+.delete-history-button img {
+  width: 20px; /* Ajusta el tamaño de la imagen */
+  height: auto;
+  transition: transform 0.2s ease; /* Animación suave al hacer hover */
+}
+
+.delete-history-button:hover img {
+  transform: scale(1.1); /* Aumentar ligeramente el tamaño al pasar el cursor */
+}
+
+.history-table td {
+  vertical-align: middle; /* Centrar verticalmente */
 }

@@ -13,14 +13,47 @@ class HistoryController {
     }
   }
 
+  async addOldHistoryToClient(req, res) {
+    try {
+      const clientId = req.params.clientId;
+      const { descripcion, kilometres } = req.body;
+
+      // Crear una fecha de hace 6 meses
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+      const newHistoryData = {
+        fecha: sixMonthsAgo,
+        descripcion,
+        kilometres,
+        client: clientId,
+      };
+
+      const newHistory = await HistoryService.create(newHistoryData);
+
+      const client = await ClientService.getById(clientId);
+      if (!client) {
+        return res.status(404).json({ error: "Cliente no encontrado" });
+      }
+
+      client.history.push(newHistory._id);
+      await client.save();
+
+      res.status(201).json({ client: client, history: newHistory });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   async addHistoryToClient(req, res) {
     try {
       const clientId = req.params.clientId;
-      const { descripcion } = req.body;
+      const { descripcion, kilometres } = req.body;
 
       const newHistoryData = {
         fecha: new Date(),
         descripcion,
+        kilometres,
         client: clientId,
       };
 

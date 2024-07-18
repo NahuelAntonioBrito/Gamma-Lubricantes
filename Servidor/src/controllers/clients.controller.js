@@ -13,32 +13,17 @@ class ClientController {
 
   async getInactiveClients(req, res) {
     try {
-      const sixMonthsAgo = new Date();
-      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-      const clients = await ClientService.getAll();
-
-      const inactiveClients = clients
-        .map((client) => {
-          const sortedHistory = client.history.sort(
-            (a, b) => new Date(b.fecha) - new Date(a.fecha)
-          );
-          const lastHistory = sortedHistory[0];
-          if (lastHistory && new Date(lastHistory.fecha) <= sixMonthsAgo) {
-            return {
-              clientId: client._id,
-              name: client.name,
-              lastName: client.lastName,
-              lastHistory,
-            };
-          }
-        })
-        .filter((client) => client !== undefined)
-        .sort(
-          (a, b) =>
-            new Date(b.lastHistory.fecha) - new Date(a.lastHistory.fecha)
-        );
-
+      const inactiveClients = await ClientService.getInactiveClients();
       res.json({ inactiveClients });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async updateInactiveClients(req, res) {
+    try {
+      await ClientService.updateInactiveClients();
+      res.status(200).send("Inactive clients updated successfully");
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -64,6 +49,15 @@ class ClientController {
         return res.status(404).json({ error: "Cliente no encontrado" });
       }
       res.json({ client });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getInactiveLastUpdated(req, res) {
+    try {
+      const inactiveClients = await ClientService.getInactiveClients();
+      res.json(inactiveClients);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

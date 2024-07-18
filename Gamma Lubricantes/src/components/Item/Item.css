@@ -5,7 +5,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 10px;
   padding: 20px;
-  width: calc(25% - 20px);
+  width: calc(25% - 40px); /* Ajuste para el margen y espacio entre cards */
   box-sizing: border-box;
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
   display: flex;

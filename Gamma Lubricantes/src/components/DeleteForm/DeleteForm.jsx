@@ -1,29 +1,47 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
+import SearchBar from "../SearchBar/SearchBar";
 import "./DeleteForm.css";
 
 const DeleteForm = ({ type, onDelete }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleDelete = async () => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar este elemento?")) {
-      onDelete(searchTerm);
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: `¿Deseas eliminar este ${
+        type === "product" ? "producto" : "cliente"
+      }?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "No, cancelar",
+    });
+
+    if (result.isConfirmed && selectedItem) {
+      onDelete(selectedItem._id);
     }
+  };
+
+  const handleNavigate = (item) => {
+    setSelectedItem(item);
   };
 
   return (
     <div className="delete-form-container">
       <h2>Eliminar {type === "product" ? "Producto" : "Cliente"}</h2>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder={
-          type === "product"
-            ? "Buscar por ID de Producto"
-            : "Buscar por ID de Cliente"
-        }
+      <SearchBar
+        onNavigate={handleNavigate}
+        placeholder={type === "product" ? "Buscar producto" : "Buscar cliente"}
+        type={type}
       />
-      <button onClick={handleDelete}>Eliminar</button>
+      <button
+        onClick={handleDelete}
+        disabled={!selectedItem}
+        className="DeleteButton"
+      >
+        Eliminar
+      </button>
     </div>
   );
 };

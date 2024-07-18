@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { clients } from "../../api/clients";
-import ClientDetail from "../ClientDetail/ClientDetail";
 import "./ClientList.css";
 
 const ClientList = () => {
   const [clientList, setClientList] = useState([]);
-  const [selectedClient, setSelectedClient] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchClients = async () => {
       try {
         const response = await clients.getAll();
-        setClientList(response.clients); // Asegúrate de que el backend devuelve los datos en esta estructura
+        setClientList(response.clients);
       } catch (error) {
         console.error("Error fetching clients: ", error);
       }
@@ -20,8 +20,8 @@ const ClientList = () => {
     fetchClients();
   }, []);
 
-  const handleSelectClient = (client) => {
-    setSelectedClient(client);
+  const handleSelectClient = (clientId) => {
+    navigate(`/clients/${clientId}`);
   };
 
   return (
@@ -30,14 +30,11 @@ const ClientList = () => {
         <h2>Clientes</h2>
         <ul>
           {clientList.map((client) => (
-            <li key={client._id} onClick={() => handleSelectClient(client)}>
+            <li key={client._id} onClick={() => handleSelectClient(client._id)}>
               {client.name} {client.lastName}
             </li>
           ))}
         </ul>
-      </div>
-      <div className="client-detail-container">
-        {selectedClient && <ClientDetail client={selectedClient} />}
       </div>
     </div>
   );

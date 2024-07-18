@@ -56,11 +56,7 @@ const SearchBar = ({ onNavigate, placeholder, type }) => {
         placeholder={placeholder || "Buscar"}
         aria-label="Search"
       />
-      <button
-        className="btn btn-outline-success"
-        type="button"
-        onClick={handleSearch}
-      >
+      <button className="search-button" type="button" onClick={handleSearch}>
         Buscar
       </button>
       {suggestions.length > 0 && (
