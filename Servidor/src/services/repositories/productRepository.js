@@ -27,14 +27,14 @@ export default class ProductReposiroty {
       throw error;
     }
   };
-  getByCategory = async (productCategory, page, limit) => {
+  async getByCategory(productCategory, page, limit) {
     try {
       return await this.dao.getByCategory(productCategory, page, limit);
     } catch (error) {
       console.error("Error al obtener los productos por categoria: ", error);
       throw error;
     }
-  };
+  }
 
   getCategories = async () => {
     try {

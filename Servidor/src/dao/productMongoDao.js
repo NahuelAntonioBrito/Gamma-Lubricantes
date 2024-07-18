@@ -23,9 +23,9 @@ export default class ProductMongoDao {
       products,
       totalPages,
       currentPage: page,
+      totalProducts,
     };
   };
-
   getCategories = async () => {
     const products = await productModel.find().exec();
     const categories = new Set();
@@ -43,6 +43,7 @@ export default class ProductMongoDao {
     await productModel.findByIdAndUpdate(id, data, {
       new: true,
     });
+
   delete = async (id) => await productModel.findByIdAndDelete(id);
 
   getPaginated = async (page = 1, limit = 12) => {

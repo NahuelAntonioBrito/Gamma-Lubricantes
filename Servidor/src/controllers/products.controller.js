@@ -39,19 +39,15 @@ class ProductController {
       const category = req.params.productCategory;
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 12;
-      const skip = (page - 1) * limit;
 
-      const { products, total } = await ProductService.getByCategory(
-        category,
-        page,
-        limit
-      );
+      const { products, totalPages, currentPage, totalProducts } =
+        await ProductService.getByCategory(category, page, limit);
 
       res.status(200).json({
-        products, // Aquí devuelves directamente el array de productos
-        total, // También puedes devolver el total de productos si lo necesitas
-        page, // Información sobre la página actual
-        limit, // Y el límite de productos por página
+        products,
+        totalPages,
+        currentPage,
+        totalProducts,
       });
     } catch (error) {
       console.error("Error fetching products:", error);
