@@ -1,5 +1,5 @@
-import clientModel from "../dao/models/clients.model.js";
 import { ClientService } from "../services/repositories/index.js";
+import config from "../config/config.js";
 
 class ClientController {
   async getClients(req, res) {
@@ -67,7 +67,13 @@ class ClientController {
     try {
       const newClientData = req.body;
       const newClient = await ClientService.create(newClientData);
-      await newClient.save();
+
+      // Si estás usando MongoDB (persistenceType === "MONGO"), se guarda con .save()
+      if (config.app.persistence === "MONGO") {
+        await newClient.save();
+      }
+
+      // En el caso de archivos, el guardado ya está manejado por ClientFileDao.create()
       res.status(201).json({ client: newClient });
     } catch (error) {
       res.status(500).json({ error: error.message });

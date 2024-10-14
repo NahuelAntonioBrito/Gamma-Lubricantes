@@ -1,6 +1,6 @@
-import productModel from "../dao/models/products.model.js";
+import productModel from "../dao/mongo/models/products.model.js";
 import { ProductService } from "../services/repositories/index.js";
-
+import config from "../config/config.js";
 class ProductController {
   async getProducts(req, res) {
     try {
@@ -37,18 +37,25 @@ class ProductController {
   async getByCategory(req, res) {
     try {
       const category = req.params.productCategory;
-      const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 12;
+      if (config.app.persistence === "MONGO") {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12;
 
-      const { products, totalPages, currentPage, totalProducts } =
-        await ProductService.getByCategory(category, page, limit);
+        const { products, totalPages, currentPage, totalProducts } =
+          await ProductService.getByCategoryPaginated(category, page, limit);
 
-      res.status(200).json({
-        products,
-        totalPages,
-        currentPage,
-        totalProducts,
-      });
+        res.status(200).json({
+          products,
+          totalPages,
+          currentPage,
+          totalProducts,
+        });
+      } else {
+        const productsByCategory = await ProductService.getByCategory(category);
+        res.status(200).json({
+          productsByCategory,
+        });
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
       res.status(500).json({

@@ -29,15 +29,29 @@ class HistoryController {
         client: clientId,
       };
 
+      // Crear el historial y guardar en la base de datos
       const newHistory = await HistoryService.create(newHistoryData);
 
+      // Buscar el cliente por su ID
       const client = await ClientService.getById(clientId);
       if (!client) {
         return res.status(404).json({ error: "Cliente no encontrado" });
       }
 
-      client.history.push(newHistory._id);
-      await client.save();
+      // Asegúrate de que 'history' es un array válido
+      if (!client.history) {
+        client.history = []; // Inicializa si no existe
+      }
+
+      // Agregar la referencia de la historia usando el mismo '_id'
+      client.history.push({
+        _id: newHistory._id, // Asegurarse de usar el mismo _id generado
+        fecha: newHistory.fecha,
+        descripcion: newHistory.descripcion,
+      });
+
+      // Actualizar el cliente con el nuevo historial
+      await ClientService.update(clientId, client);
 
       res.status(201).json({ client: client, history: newHistory });
     } catch (error) {
@@ -50,24 +64,34 @@ class HistoryController {
       const clientId = req.params.clientId;
       const { descripcion, kilometres } = req.body;
 
+      // Crear el nuevo historial
       const newHistoryData = {
-        fecha: new Date(),
+        fecha: new Date(), // o puedes usar el valor de la fecha desde req.body
         descripcion,
         kilometres,
         client: clientId,
       };
 
+      // Guardar el historial en el servicio (puedes ajustar esto si es necesario)
       const newHistory = await HistoryService.create(newHistoryData);
 
+      // Buscar el cliente por ID
       const client = await ClientService.getById(clientId);
       if (!client) {
         return res.status(404).json({ error: "Cliente no encontrado" });
       }
+      console.log("newHistoryData: ", newHistoryData);
+      // Agregar el nuevo historial al array 'historial'
+      client.history.push({
+        id: newHistory.id, // Asegúrate de que esto sea el id generado correctamente
+        fecha: newHistoryData.fecha, // Usar la fecha desde el historial
+        descripcion: newHistoryData.descripcion, // Aquí se agrega la descripción
+      });
 
-      client.history.push(newHistory._id);
-      await client.save();
+      // Guardar cambios en el cliente
+      await ClientService.update(clientId, client);
 
-      res.status(201).json({ client: client, history: newHistory });
+      res.status(201).json({ client: client });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

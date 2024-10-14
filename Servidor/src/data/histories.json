@@ -1,0 +1,311 @@
+[
+  {
+    "_id": {
+      "$oid": "66719c0e2576f48a212ba6d2"
+    },
+    "fecha": {
+      "$date": "2023-05-10T00:00:00.000Z"
+    },
+    "descripcion": "Cambio de aceite y filtro",
+    "__v": 0,
+    "kilometres": 10
+  },
+  {
+    "_id": {
+      "$oid": "66719c0e2576f48a212ba6d4"
+    },
+    "fecha": {
+      "$date": "2023-06-15T00:00:00.000Z"
+    },
+    "descripcion": "Revisión de frenos y reemplazo de pastillas",
+    "__v": 0,
+    "kilometres": 10
+  },
+  {
+    "_id": {
+      "$oid": "66719c0e2576f48a212ba6d6"
+    },
+    "fecha": {
+      "$date": "2023-08-20T00:00:00.000Z"
+    },
+    "descripcion": "Cambio de bujías y revisión de sistema de encendido",
+    "__v": 0,
+    "kilometres": 5
+  },
+  {
+    "_id": {
+      "$oid": "6671e56cf71521bb4123b8fd"
+    },
+    "fecha": {
+      "$date": "2024-06-18T19:52:12.071Z"
+    },
+    "descripcion": "Cambio de aceite",
+    "__v": 0,
+    "kilometres": 5
+  },
+  {
+    "_id": {
+      "$oid": "6672df21fc21db45a3774898"
+    },
+    "fecha": {
+      "$date": "2024-06-19T13:37:37.456Z"
+    },
+    "descripcion": "cambio de aceite",
+    "__v": 0,
+    "kilometres": 5
+  },
+  {
+    "_id": {
+      "$oid": "6672e81d0cd87d619652976a"
+    },
+    "fecha": {
+      "$date": "2023-12-19T14:15:57.014Z"
+    },
+    "descripcion": "Cambio de aceite y filtro",
+    "client": {
+      "$oid": "6672e772b8ffa44c47442965"
+    },
+    "__v": 0,
+    "kilometres": 20
+  },
+  {
+    "_id": {
+      "$oid": "669035c372ec1f670a48fe45"
+    },
+    "fecha": {
+      "$date": "2024-01-11T19:42:59.167Z"
+    },
+    "descripcion": "Revisión general y cambio de aceite",
+    "client": {
+      "$oid": "6672dea22ca538a99f3adb9d"
+    },
+    "__v": 0,
+    "kilometres": 20
+  },
+  {
+    "_id": {
+      "$oid": "669147296d58a621702faf52"
+    },
+    "fecha": {
+      "$date": "2024-01-12T15:09:29.283Z"
+    },
+    "descripcion": "cambio de puerta",
+    "client": {
+      "$oid": "6672dea22ca538a99f3adb9d"
+    },
+    "__v": 0,
+    "kilometres": 20
+  },
+  {
+    "_id": {
+      "$oid": "669564b6a1cedfeb63eed4ba"
+    },
+    "fecha": {
+      "$date": "2024-01-15T18:04:38.926Z"
+    },
+    "descripcion": "messi",
+    "client": {
+      "$oid": "6672e772b8ffa44c47442965"
+    },
+    "kilometres": 20,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "66985a52ef368667d24cf3be"
+    },
+    "fecha": {
+      "$date": "2024-01-17T23:57:06.529Z"
+    },
+    "descripcion": "Cambio de bujías y revisión de sistema de encendido",
+    "client": {
+      "$oid": "6672de752ca538a99f3adb9b"
+    },
+    "kilometres": 10000,
+    "__v": 0
+  },
+  {
+    "fecha": "2024-10-09T14:31:48.129Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": null
+  },
+  {
+    "fecha": "2024-10-09T14:34:15.042Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 1
+  },
+  {
+    "fecha": "2024-10-09T14:39:48.597Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 2
+  },
+  {
+    "fecha": "2024-10-09T14:40:34.776Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 3
+  },
+  {
+    "fecha": "2024-10-09T14:40:52.945Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 4
+  },
+  {
+    "fecha": "2024-10-09T14:41:18.574Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 5
+  },
+  {
+    "fecha": "2024-10-09T14:41:21.587Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 6
+  },
+  {
+    "fecha": "2024-10-09T14:41:24.688Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 7
+  },
+  {
+    "fecha": "2024-10-09T14:42:06.215Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 8
+  },
+  {
+    "fecha": "2024-10-09T14:42:45.665Z",
+    "client": "3",
+    "id": 9
+  },
+  {
+    "fecha": "2024-10-09T14:44:40.681Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 10
+  },
+  {
+    "fecha": "2024-10-09T14:44:44.694Z",
+    "descripcion": "Creacion por archivo",
+    "client": "3",
+    "id": 11
+  },
+  {
+    "fecha": "2024-10-09T14:47:35.658Z",
+    "client": "3",
+    "id": 12
+  },
+  {
+    "fecha": "2024-10-09T14:48:37.142Z",
+    "client": "3",
+    "id": 13
+  },
+  {
+    "fecha": "2024-10-09T14:52:51.702Z",
+    "client": "3",
+    "id": 14
+  },
+  {
+    "fecha": "2024-10-09T14:53:36.890Z",
+    "client": "3",
+    "id": 15
+  },
+  {
+    "fecha": "2024-10-09T14:54:24.627Z",
+    "client": "3",
+    "id": 16
+  },
+  {
+    "fecha": "2024-10-09T14:56:13.593Z",
+    "client": "3",
+    "id": 17
+  },
+  {
+    "fecha": "2024-10-09T14:56:37.999Z",
+    "client": "3",
+    "id": 18
+  },
+  {
+    "fecha": "2024-10-09T14:58:19.453Z",
+    "client": "3",
+    "id": 19
+  },
+  {
+    "fecha": "2024-10-09T14:58:42.602Z",
+    "client": "3",
+    "id": 20
+  },
+  {
+    "fecha": "2024-10-09T14:59:31.743Z",
+    "client": "3",
+    "id": 21
+  },
+  {
+    "fecha": "2024-10-09T15:01:44.375Z",
+    "descripcion": "Creación por archivo",
+    "kilometres": 1000,
+    "client": "3",
+    "id": 22
+  },
+  {
+    "fecha": "2024-04-10T13:17:37.977Z",
+    "descripcion": "Creación por MONGO",
+    "kilometres": 1000,
+    "client": "2",
+    "id": 23
+  },
+  {
+    "fecha": "2024-04-10T13:18:34.488Z",
+    "descripcion": "Creación por MONGO",
+    "kilometres": 1000,
+    "client": "2",
+    "id": 24
+  },
+  {
+    "fecha": "2024-04-10T13:21:03.103Z",
+    "descripcion": "Creación por MONGO",
+    "kilometres": 1000,
+    "client": "2",
+    "id": 25
+  },
+  {
+    "fecha": "2024-04-10T13:23:07.111Z",
+    "descripcion": "Creación por MONGO",
+    "kilometres": 1000,
+    "client": "2",
+    "id": 26
+  },
+  {
+    "fecha": "2024-04-10T13:27:44.883Z",
+    "descripcion": "Creación por MONGO",
+    "kilometres": 1000,
+    "client": "2",
+    "id": 27
+  },
+  {
+    "fecha": "2024-04-10T13:28:21.839Z",
+    "descripcion": "Creación por MONGO",
+    "kilometres": 1000,
+    "client": "2",
+    "id": 28
+  },
+  {
+    "fecha": "2024-04-10T13:29:26.430Z",
+    "descripcion": "Creación por MONGO",
+    "kilometres": 1000,
+    "client": "2",
+    "id": 29
+  },
+  {
+    "fecha": "2024-04-10T13:39:21.502Z",
+    "descripcion": "Creación por archivo luis",
+    "kilometres": 1000,
+    "client": "2",
+    "id": 30
+  }
+]

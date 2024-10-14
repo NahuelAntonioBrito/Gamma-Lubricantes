@@ -6,7 +6,7 @@ export default class ProductMongoDao {
   getByName = async (productName) => {
     return productModel.find({ title: new RegExp(productName, "i") }).exec();
   };
-  getByCategory = async (productCategory, page = 1, limit = 12) => {
+  getByCategoryPaginated = async (productCategory, page = 1, limit = 12) => {
     const skip = (page - 1) * limit;
     const query = { category: new RegExp(`^${productCategory}$`, "i") };
 

@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "66985b013ea83efa87a989bf"
+  },
+  "clientId": {
+    "$oid": "6672de752ca538a99f3adb9b"
+  },
+  "name": "Nahuel Antonio",
+  "lastName": "Brito",
+  "lastHistory": {
+    "$oid": "66985a52ef368667d24cf3be"
+  },
+  "lastUpdated": {
+    "$date": "2024-07-18T00:00:01.141Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66985b013ea83efa87a989c1"
+  },
+  "clientId": {
+    "$oid": "6672dea22ca538a99f3adb9d"
+  },
+  "name": "Juan",
+  "lastName": "Brito",
+  "lastHistory": {
+    "$oid": "669147296d58a621702faf52"
+  },
+  "lastUpdated": {
+    "$date": "2024-07-18T00:00:01.229Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66985b013ea83efa87a989c3"
+  },
+  "clientId": {
+    "$oid": "6672e772b8ffa44c47442965"
+  },
+  "name": "Juan",
+  "lastName": "Perez",
+  "lastHistory": {
+    "$oid": "669564b6a1cedfeb63eed4ba"
+  },
+  "lastUpdated": {
+    "$date": "2024-07-18T00:00:01.288Z"
+  },
+  "__v": 0
+}]
