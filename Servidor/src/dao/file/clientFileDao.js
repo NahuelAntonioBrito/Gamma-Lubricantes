@@ -1,5 +1,6 @@
 import fs from "fs";
-import path from "path"; // Importa path para manejar rutas
+import path from "path";
+import { logToBitacora } from "../../utils/logEvent.js";
 
 class ClientFileDao {
   #clientsPath;
@@ -41,7 +42,7 @@ class ClientFileDao {
 
   async create(client) {
     try {
-      // Validación de datos
+      // Validación de datos (sin incluir el campo persistence aquí)
       const requiredFields = [
         "name",
         "lastName",
@@ -51,7 +52,7 @@ class ClientFileDao {
         "aceite",
         "celular",
         "mail",
-        "historial",
+        "history",
       ];
 
       const missingFields = requiredFields.filter((field) => !client[field]);
@@ -61,6 +62,12 @@ class ClientFileDao {
           ", "
         )}`;
       }
+
+      // Agregar el campo persistence automáticamente
+      client.persistence = {
+        lastUpdated: new Date().toISOString(), // Fecha y hora actual en formato ISO
+        method: "file", // Método de persistencia, en este caso "file"
+      };
 
       // Obtener todos los clientes y generar el nuevo ID
       let clients = await this.getAll();
@@ -74,13 +81,14 @@ class ClientFileDao {
         this.#clientsPath,
         JSON.stringify(clients, null, 2)
       );
-
+      await logToBitacora("client", "create", client.id, client);
       return client;
     } catch (error) {
       console.error("Error al agregar cliente:", error);
       return `ERROR al agregar el cliente: ${error.message}`;
     }
   }
+
   async getById(id) {
     try {
       // Verifica si el archivo existe antes de intentar leerlo
@@ -159,7 +167,7 @@ class ClientFileDao {
         this.#clientsPath,
         JSON.stringify(clients, null, 2)
       );
-
+      await logToBitacora("client", "update", id, updatedClientData);
       return clients[clientIndex]; // Devuelve el cliente actualizado
     } catch (error) {
       console.error(`Error al actualizar el cliente con id ${id}:`, error);
@@ -191,7 +199,7 @@ class ClientFileDao {
         this.#clientsPath,
         JSON.stringify(newClientsList, null, 2)
       );
-
+      await logToBitacora("client", "delete", id);
       return `Cliente con id ${id} eliminado con éxito`;
     } catch (error) {
       console.error(`Error al eliminar el cliente con id ${id}:`, error);

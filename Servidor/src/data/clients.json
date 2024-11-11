@@ -70,5 +70,49 @@
       }
     ],
     "id": 3
+  },
+  {
+    "name": "Producto",
+    "lastName": "FILE",
+    "auto": "Fiat 23",
+    "patente": "nmf822",
+    "modelo": 2034,
+    "aceite": "10w40",
+    "celular": "03541 321418",
+    "mail": "example@gmail.com",
+    "history": [
+      {
+        "id": 22,
+        "fecha": "2024-10-09T15:01:44.375Z",
+        "descripcion": "Creación por archivo"
+      }
+    ],
+    "persistence": {
+      "lastUpdated": "2024-10-10T12:00:00Z",
+      "method": "file"
+    },
+    "id": 4
+  },
+  {
+    "name": "Prueva",
+    "lastName": "FILE",
+    "auto": "Fiat 23",
+    "patente": "nmf822",
+    "modelo": 2034,
+    "aceite": "10w40",
+    "celular": "03541 321418",
+    "mail": "example@gmail.com",
+    "history": [
+      {
+        "id": 22,
+        "fecha": "2024-10-09T15:01:44.375Z",
+        "descripcion": "Creación por archivo"
+      }
+    ],
+    "persistence": {
+      "lastUpdated": "2024-10-22T13:33:34.794Z",
+      "method": "file"
+    },
+    "id": 5
   }
 ]

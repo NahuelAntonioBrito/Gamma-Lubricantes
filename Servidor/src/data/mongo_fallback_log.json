@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": "2024-11-11T14:22:46.980Z",
+    "entity": "product",
+    "action": "create",
+    "id": 24,
+    "data": {
+      "title": "Prueba bitacora actualizada 2",
+      "liters": 43,
+      "price": 12,
+      "thumbnails": [],
+      "status": true,
+      "code": "12dddw",
+      "stock": 12,
+      "category": "Aceite",
+      "carCompatibility": [],
+      "persistence": {
+        "lastUpdated": "2024-11-11T14:22:46.977Z",
+        "method": "file"
+      },
+      "id": 24
+    }
+  }
+]

@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { logToBitacora } from "../../utils/logEvent.js";
 
 class ProductFileDao {
   #productsPath;
@@ -59,6 +60,13 @@ class ProductFileDao {
           ", "
         )}`;
       }
+
+      // Agregar el campo persistence automáticamente
+      product.persistence = {
+        lastUpdated: new Date().toISOString(), // Fecha y hora actual en formato ISO
+        method: "file", // Método de persistencia, en este caso "file"
+      };
+
       let products = await this.getAll();
       product.id = this.#generateId(products);
       products.push(product);
@@ -66,6 +74,7 @@ class ProductFileDao {
         this.#productsPath,
         JSON.stringify(products, null, 2)
       );
+      await logToBitacora("product", "create", product.id, product);
       return product;
     } catch (error) {
       console.error("Error al agregar producto:", error);
@@ -169,7 +178,7 @@ class ProductFileDao {
         this.#productsPath,
         JSON.stringify(products, null, 2)
       );
-
+      await logToBitacora("product", "update", id, updatedProduct);
       return products[index];
     } catch (error) {
       console.error("Error al actualizar producto:", error);
@@ -196,7 +205,7 @@ class ProductFileDao {
         this.#productsPath,
         JSON.stringify(newProducts, null, 2)
       );
-
+      await logToBitacora("product", "delete", id);
       return `Producto con id ${id} eliminado correctamente`;
     } catch (error) {
       console.error("Error al eliminar producto:", error);

@@ -1,60 +1,80 @@
 export default class ClientRepository {
-  constructor(dao, inactiveClientDao) {
-    this.dao = dao;
+  constructor(createDAOs, inactiveClientDao) {
+    this.createDAOs = createDAOs;
     this.inactiveClientDao = inactiveClientDao;
   }
 
+  // Función auxiliar para obtener el clientDAO actualizado dinámicamente
+  getClientDAO = () => {
+    const { clientDAO } = this.createDAOs();
+    return clientDAO;
+  };
+
+  // Obtener todos los clientes
   getAll = async () => {
     try {
-      return await this.dao.getAll();
+      const clientDAO = this.getClientDAO(); // Llamada a la función auxiliar
+      return await clientDAO.getAll();
     } catch (error) {
       console.error("Error al obtener todos los clientes: ", error);
       throw error;
     }
   };
 
+  // Obtener cliente por ID
   getById = async (id) => {
     try {
-      return await this.dao.getById(id);
+      const clientDAO = this.getClientDAO(); // Llamada a la función auxiliar
+      return await clientDAO.getById(id);
     } catch (error) {
-      console.error("Error al obtener el cliente: ", error);
+      console.error("Error al obtener el cliente por ID: ", error);
       throw error;
     }
   };
 
+  // Obtener cliente por nombre
   getByName = async (clientName) => {
     try {
-      return await this.dao.getByName(clientName);
+      const clientDAO = this.getClientDAO(); // Llamada a la función auxiliar
+      return await clientDAO.getByName(clientName);
     } catch (error) {
-      console.error("Error al obtener los clientes: ", error);
+      console.error("Error al obtener el cliente por nombre: ", error);
       throw error;
     }
   };
 
+  // Crear nuevo cliente
   create = async (data) => {
     try {
-      return await this.dao.create(data);
+      const clientDAO = this.getClientDAO(); // Llamada a la función auxiliar
+      return await clientDAO.create(data);
     } catch (error) {
-      console.error("Error al crear el Cliente: ", error);
+      console.error("Error al crear el cliente: ", error);
+      throw error;
     }
   };
 
+  // Actualizar cliente existente
   update = async (id, data) => {
     try {
-      return await this.dao.update(id, data);
+      const clientDAO = this.getClientDAO(); // Llamada a la función auxiliar
+      return await clientDAO.update(id, data);
     } catch (error) {
       console.error("Error al actualizar el cliente: ", error);
+      throw error;
     }
   };
 
+  // Eliminar cliente por ID
   delete = async (id) => {
     try {
-      return await this.dao.delete(id);
+      const clientDAO = this.getClientDAO(); // Llamada a la función auxiliar
+      return await clientDAO.delete(id);
     } catch (error) {
       console.error("Error al eliminar el cliente: ", error);
+      throw error;
     }
   };
-
   updateInactiveClients = async () => {
     const sixMonthsAgo = new Date();
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);

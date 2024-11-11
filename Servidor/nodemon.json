@@ -1,0 +1,3 @@
+{
+  "ignore": ["data/mongo_fallback_log.json"]
+}

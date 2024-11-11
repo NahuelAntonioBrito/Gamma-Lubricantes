@@ -520,5 +520,37 @@
     "category": "Aceite",
     "carCompatibility": [],
     "__v": 0
+  },
+  {
+    "title": "Prueba subida a mongo",
+    "liters": 43,
+    "price": 12,
+    "thumbnails": [],
+    "status": true,
+    "code": "12dddw",
+    "stock": 12,
+    "category": "Aceite",
+    "carCompatibility": [],
+    "persistence": {
+      "lastUpdated": "2024-10-29T15:44:19.377Z",
+      "method": "file"
+    },
+    "id": 23
+  },
+  {
+    "title": "Prueba bitacora actualizada 2",
+    "liters": 43,
+    "price": 12,
+    "thumbnails": [],
+    "status": true,
+    "code": "12dddw",
+    "stock": 12,
+    "category": "Aceite",
+    "carCompatibility": [],
+    "persistence": {
+      "lastUpdated": "2024-11-11T14:22:46.977Z",
+      "method": "file"
+    },
+    "id": 24
   }
 ]

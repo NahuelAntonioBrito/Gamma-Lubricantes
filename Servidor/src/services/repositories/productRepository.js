@@ -1,11 +1,18 @@
 export default class ProductReposiroty {
-  constructor(dao) {
-    this.dao = dao;
+  constructor(createDAOs) {
+    this.createDAOs = createDAOs;
   }
+
+  // Función auxiliar para obtener el clientDAO actualizado dinámicamente
+  getProductDAO = () => {
+    const { productDAO } = this.createDAOs();
+    return productDAO;
+  };
 
   getAll = async () => {
     try {
-      return await this.dao.getAll();
+      const productDAO = this.getProductDAO();
+      return await productDAO.getAll();
     } catch (error) {
       console.error("Error al obtener todos los productos: ", error);
       throw error;
@@ -13,7 +20,8 @@ export default class ProductReposiroty {
   };
   getById = async (id) => {
     try {
-      return await this.dao.getById(id);
+      const productDAO = this.getProductDAO();
+      return await productDAO.getById(id);
     } catch (error) {
       console.error("Error al obtener el producto: ", error);
       throw error;
@@ -21,7 +29,8 @@ export default class ProductReposiroty {
   };
   getByName = async (productName) => {
     try {
-      return await this.dao.getByName(productName);
+      const productDAO = this.getProductDAO();
+      return await productDAO.getByName(productName);
     } catch (error) {
       console.error("Error al obtener los productos: ", error);
       throw error;
@@ -29,7 +38,8 @@ export default class ProductReposiroty {
   };
   getByCategory = async (productCategory) => {
     try {
-      return await this.dao.getByCategory(productCategory);
+      const productDAO = this.getProductDAO();
+      return await productDAO.getByCategory(productCategory);
     } catch (error) {
       console.error("Error al obtener los productos: ", error);
       throw error;
@@ -37,7 +47,8 @@ export default class ProductReposiroty {
   };
   async getByCategoryPaginated(productCategory, page, limit) {
     try {
-      return await this.dao.getByCategoryPaginated(
+      const productDAO = this.getProductDAO();
+      return await productDAO.getByCategoryPaginated(
         productCategory,
         page,
         limit
@@ -50,7 +61,8 @@ export default class ProductReposiroty {
 
   getCategories = async () => {
     try {
-      return await this.dao.getCategories();
+      const productDAO = this.getProductDAO();
+      return await productDAO.getCategories();
     } catch (error) {
       console.error("Error al obtener las categorias: ", error);
       throw error;
@@ -58,7 +70,8 @@ export default class ProductReposiroty {
   };
   create = async (data) => {
     try {
-      return await this.dao.create(data);
+      const productDAO = this.getProductDAO();
+      return await productDAO.create(data);
     } catch (error) {
       console.error("Error al crear el Producto: ", error);
       throw error;
@@ -66,7 +79,8 @@ export default class ProductReposiroty {
   };
   update = async (id, data) => {
     try {
-      return await this.dao.update(id, data);
+      const productDAO = this.getProductDAO();
+      return await productDAO.update(id, data);
     } catch (error) {
       console.error("Error al actualizar el Producto: ", error);
       throw error;
@@ -75,7 +89,8 @@ export default class ProductReposiroty {
 
   delete = async (id) => {
     try {
-      return await this.dao.delete(id);
+      const productDAO = this.getProductDAO();
+      return await productDAO.delete(id);
     } catch (error) {
       console.error("Error al eliminar el Producto: ", error);
       throw error;
@@ -83,7 +98,8 @@ export default class ProductReposiroty {
   };
   getPaginated = async (page, limit) => {
     try {
-      return await this.dao.getPaginated(page, limit);
+      const productDAO = this.getProductDAO();
+      return await productDAO.getPaginated(page, limit);
     } catch (error) {
       console.error("Error al obtener los Productos paginados: ", error);
       throw error;

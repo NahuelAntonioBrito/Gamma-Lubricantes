@@ -7,12 +7,27 @@ import ClientFileDao from "./file/clientFileDao.js";
 import ProductFileDao from "./file/productFileDao.js";
 import HistoryFileDao from "./file/historyFileDao.js";
 import InactiveClientFileDao from "./file/inactiveClientFileDao.js";
-import { ensureFilesExist } from "../utils/fileUtils.js";
+import { ensureFilesExist } from "../utils/FilesExist.js";
 
-const persistenceType = config.app.persistence;
-console.log("persistence: ", persistenceType);
+let persistenceType = config.app.persistence;
 
+const getCurrentPersistenceType = () => persistenceType; // Función para obtener el tipo de persistencia actual
+
+const setCurrentPersistenceType = (newPersistenceType) => {
+  persistenceType = newPersistenceType; // Función para actualizar la persistencia
+};
+
+// Cambiar a persistencia de archivos cuando Mongo falla
+const switchPersistenceToFile = () => {
+  console.log("Cambiando a persistencia de archivos...");
+  setCurrentPersistenceType("FILE"); // Actualizar la persistencia globalmente
+  console.log("Persistencia cambiada a archivos.");
+};
+
+// Función para obtener el DAO dinámicamente según el tipo de persistencia actual
 const createDAOs = () => {
+  const persistenceType = getCurrentPersistenceType(); // Obtener el tipo de persistencia actual
+  console.log("getCurrentPersistenceType: ", persistenceType);
   if (persistenceType === "MONGO") {
     return {
       productDAO: new ProductMongoDao(),
@@ -21,7 +36,7 @@ const createDAOs = () => {
       inactiveClientDAO: new InactiveClientMongoDao(),
     };
   } else if (persistenceType === "FILE") {
-    // Verificamos o creamos los archivos necesarios
+    // Verificar o crear los archivos necesarios
     const filesToCheck = [
       "products.json",
       "clients.json",
@@ -47,4 +62,9 @@ const createDAOs = () => {
   throw new Error("Tipo de persistencia no válido");
 };
 
-export default createDAOs;
+export {
+  createDAOs,
+  switchPersistenceToFile,
+  getCurrentPersistenceType,
+  setCurrentPersistenceType,
+};

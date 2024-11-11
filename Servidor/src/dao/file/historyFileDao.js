@@ -1,5 +1,6 @@
 import fs from "fs";
-import path from "path"; // Importa path para manejar rutas
+import path from "path";
+import { logToBitacora } from "../../utils/logEvent.js";
 
 class HistoryFileDao {
   #historiesPath;
@@ -65,6 +66,11 @@ class HistoryFileDao {
 
   async create(history) {
     try {
+      // Agregar el campo persistence automáticamente
+      history.persistence = {
+        lastUpdated: new Date().toISOString(), // Fecha y hora actual en formato ISO
+        method: "file", // Método de persistencia, en este caso "file"
+      };
       let histories = await this.getAll();
       history.id = this.#generateId(histories);
       histories.push(history);
@@ -72,6 +78,7 @@ class HistoryFileDao {
         this.#historiesPath,
         JSON.stringify(histories, null, 2)
       );
+      await logToBitacora("history", "create", history.id, history);
       return history;
     } catch (error) {
       console.error("Error al agregar el historial:", error);
@@ -104,7 +111,7 @@ class HistoryFileDao {
         this.#historiesPath,
         JSON.stringify(histories, null, 2)
       );
-
+      await logToBitacora("history", "update", id, updatedHistory);
       return histories[index];
     } catch (error) {
       console.error("Error al actualizar historial:", error);
@@ -131,7 +138,7 @@ class HistoryFileDao {
         this.#historiesPath,
         JSON.stringify(newHistories, null, 2)
       );
-
+      await logToBitacora("history", "delete", id);
       return `Historial con id ${id} eliminado correctamente`;
     } catch (error) {
       console.error("Error al eliminar historial:", error);
